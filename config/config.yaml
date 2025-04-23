@@ -1,0 +1,72 @@
+# System Configuration
+
+# Camera Settings
+camera:
+  resolution: [1920, 1080]
+  fps: 30
+  device_id: 0
+
+# Model Paths
+models:
+  yolo:
+    weights: "models/yolov5s.pt"
+    config: "models/yolov5.yaml"
+  alexnet:
+    weights: "models/alexnet.pth"
+  ocr:
+    tesseract_path: "/usr/bin/tesseract"
+
+# Detection Settings
+detection:
+  confidence_threshold: 0.5
+  nms_threshold: 0.4
+  classes:
+    - car
+    - motorcycle
+    - truck
+    - bus
+    - bicycle
+    - ambulance
+    - police
+
+# Violation Detection
+violation:
+  speed_limit: 60  # km/h
+  helmet_required: true
+  seatbelt_required: true
+  lane_change_threshold: 3  # seconds
+
+# Traffic Signal Control
+signal:
+  min_green_time: 30  # seconds
+  max_green_time: 120  # seconds
+  yellow_time: 3  # seconds
+  emergency_priority_duration: 45  # seconds
+  density_thresholds:
+    low: 5
+    medium: 15
+    high: 30
+
+# Database
+database:
+  type: "sqlite"
+  path: "data/traffic.db"
+
+# AWS Configuration
+aws:
+  region: "us-east-1"
+  s3_bucket: "traffic-system-data"
+  ec2_instance_type: "t2.medium"
+
+# Logging
+logging:
+  level: "INFO"
+  file: "data/system.log"
+  rotation: "1 day"
+
+# UI Settings
+ui:
+  port: 8501
+  theme: "light"
+  refresh_rate: 1  # seconds
+  dashboard_update_interval: 5  # seconds 

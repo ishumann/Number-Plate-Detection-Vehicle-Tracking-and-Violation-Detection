@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  traffic-system:
+    build: .
+    ports:
+      - "8501:8501"  # Streamlit web interface
+    volumes:
+      - ./data:/app/data  # Persist data
+      - ./models:/app/models  # Persist models
+      - ./config:/app/config  # Mount configuration
+      - /dev/video0:/dev/video0  # Access to camera (if using local camera)
+    environment:
+      - PYTHONUNBUFFERED=1
+      - CUDA_VISIBLE_DEVICES=  # Disable GPU if not available
+    restart: unless-stopped
+    devices:
+      - "/dev/video0:/dev/video0"  # Camera device pass-through
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+          memory: 4G
+        reservations:
+          cpus: '2'
+          memory: 2G 
